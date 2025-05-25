@@ -1,4 +1,4 @@
-use std::cell::{Ref, RefCell};
+use std::cell::RefCell;
 use std::rc::Rc;
 
 #[derive(Clone)]
@@ -103,7 +103,7 @@ impl Iterator for ListIterator {
         let current = &self.current;
         let mut result = None;
         self.current = match current {
-            Some(ref current) => {
+            Some(current) => {
                 let current = current.borrow();
                 result = Some(current.value.clone());
                 current.next.clone()
@@ -127,5 +127,27 @@ impl DoubleEndedIterator for ListIterator {
             None => None
         };
         result
+    }
+}
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn test_iterator() {
+        let mut log = BetterTransactionLog::new_empty();
+
+        log.append("hello, ".to_string());
+        log.append("I".to_string());
+        log.append("am".to_string());
+        log.append("33".to_string());
+        log.append("years".to_string());
+        log.append("old".to_string());
+
+        for i in log {
+            println!("{}", i);
+        }
+
     }
 }

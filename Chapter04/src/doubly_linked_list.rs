@@ -90,9 +90,7 @@ pub struct ListIterator {
 
 impl ListIterator {
     fn new(start_at: Link) -> ListIterator {
-        ListIterator {
-            current: start_at,
-        }
+        ListIterator { current: start_at }
     }
 }
 
@@ -107,8 +105,8 @@ impl Iterator for ListIterator {
                 let current = current.borrow();
                 result = Some(current.value.clone());
                 current.next.clone()
-            },
-            None => None
+            }
+            None => None,
         };
         result
     }
@@ -130,15 +128,15 @@ impl DoubleEndedIterator for ListIterator {
     }
 }
 
-
 #[cfg(test)]
 mod tests {
+    use crate::doubly_linked_list;
     use super::*;
     #[test]
     fn test_forward_iterator() {
         let mut log = BetterTransactionLog::new_empty();
 
-        log.append("hello, ".to_string());
+        log.append("hello,".to_string());
         log.append("I".to_string());
         log.append("am".to_string());
         log.append("33".to_string());
@@ -146,10 +144,23 @@ mod tests {
         log.append("old".to_string());
 
         for i in log {
-            println!("{}", i);
+            print!("{} ", i);
         }
-
     }
-    
-    
+
+    #[test]
+    fn test_backward_iterator() {
+        let mut log = BetterTransactionLog::new_empty();
+
+        log.append("Hola".to_string());
+        log.append("Amigo".to_string());
+        log.append("Adiós".to_string());
+
+
+        let mut iter = log.back_iter();
+
+        while let Some(element) = iter.next_back() {
+            print!("{} ", element);
+        }
+    }
 }

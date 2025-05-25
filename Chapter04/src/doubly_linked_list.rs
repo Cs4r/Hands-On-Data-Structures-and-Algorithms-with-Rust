@@ -135,7 +135,7 @@ impl DoubleEndedIterator for ListIterator {
 mod tests {
     use super::*;
     #[test]
-    fn test_iterator() {
+    fn test_forward_iterator() {
         let mut log = BetterTransactionLog::new_empty();
 
         log.append("hello, ".to_string());
@@ -150,4 +150,6 @@ mod tests {
         }
 
     }
+    
+    
 }

@@ -59,3 +59,25 @@ impl TransactionLog {
 
  
 }
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+
+    #[test]
+    fn test_append_and_pop() {
+        let mut log = TransactionLog::new_empty();
+
+        log.append(String::from("Hello"));
+        log.append(String::from("my"));
+        log.append(String::from("name"));
+        log.append(String::from("is"));
+        log.append(String::from("César"));
+
+        for i in 0..log.length {
+            println!("{}", log.pop().unwrap());
+        }
+
+    }
+}
